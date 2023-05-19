@@ -25,11 +25,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        // $request->authenticate();
 
-        $request->session()->regenerate();
+        // $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // return redirect()->intended(RouteServiceProvider::HOME);
+        $credentials=$request->only('email','password');
+        if(Auth::attempt($credentials)&& Auth::user()->utype=='USR'){
+            //dang nhap thanh cong chuyen huong trang chu
+            return redirect()->intended('/');
+        }
+        if(Auth::attempt($credentials)&& Auth::user()->utype=='ADM'){
+            //dang nhap thanh cong chuyen huong trang admin
+            return redirect()->intended('/admin2');
+        }
+        return redirect('/login');
     }
 
     /**

@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -34,6 +34,16 @@
 </head>
 
 <body>
+    @if(session()->has('message'))
+	<div >
+		<script>swal("{{session()->get('message')}}", "", "success");</script>
+	</div>
+	@endif
+    @if(session()->has('warning'))
+	<div >
+		<script>swal("{{session()->get('warning')}}", "", "warning");</script>
+	</div>
+	@endif
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner"></div>
@@ -45,7 +55,6 @@
         <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
             <a href="index.html" class="navbar-brand p-0">
                 <h1 class="m-0"><i class="fa fa-user-tie me-2"></i>TRƯỜNG ĐẠI HỌC VINH
-                    VINH UNIVERSITY
                     </h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -57,19 +66,28 @@
                     <a href="{{ route('about') }}" class="nav-item nav-link">Về chúng tôi</a>
                     <a href="{{ route('blog') }}" class="nav-item nav-link" >Bài viết</a>
                     <a href="{{ route('contact') }}" class="nav-item nav-link">Liên hệ</a>
-                  @if (Route::has('login'))
-                
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="nav-item nav-link">Dashboard</a>
+                  <a href="#" class="nav-item nav-link">{{ Auth::user()->name }}</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"></a>
+                        <div class="dropdown-menu m-0">
+                            <span  class="dropdown-item"><form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit">Sign out</button>
+                                
+                              </form></span>
+                              @if (Auth::user()->utype=='ADM')
+                                  
+                              <a href="/admin2" class="dropdown-item">
+                                    Admin
+                              </a>
+                              @endif
+                        </div>
+                    </div>
                     @else
                         <a href="{{ route('login') }}" class="nav-item nav-link">Đăng nhập</a>
-
-                        @if (Route::has('register'))
                             <a href="{{ route('register') }}"class="nav-item nav-link">Đăng ký</a>
-                        @endif
-                    @endauth
-                
-                   @endif
+                   @endauth
             
                 </div>
             </div>
@@ -97,7 +115,7 @@
                         <form action="">
                             <div class="input-group">
                                 <input type="text" class="form-control border-white p-3" placeholder="Your Email">
-                                <button class="btn btn-dark">Sign Up</button>
+                                <button class="btn btn-dark">Đăng kí</button>
                             </div>
                         </form>
                     </div>
@@ -106,7 +124,7 @@
                     <div class="row gx-5">
                         <div class="col-lg-4 col-md-12 pt-5 mb-5">
                             <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                                <h3 class="text-light mb-0">Get In Touch</h3>
+                                <h3 class="text-light mb-0">Thông tin liên hệ</h3>
                             </div>
                             <div class="d-flex mb-2">
                                 <i class="bi bi-geo-alt text-primary me-2"></i>
@@ -142,7 +160,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
                             <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                                <h3 class="text-light mb-0">Popular Links</h3>
+                                <h3 class="text-light mb-0">Liên kết</h3>
                             </div>
                             <div class="link-animated d-flex flex-column justify-content-start">
                                 <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Trang chủ</a>

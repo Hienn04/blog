@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\WelcomeController;
@@ -22,7 +23,9 @@ Route::get('/about', [WelcomeController::class, 'about'])->name('about');
 Route::get('/blog', [WelcomeController::class, 'blog'])->name('blog');
 Route::get('/contact', [WelcomeController::class, 'contact'])->name('contact');
 
-// Route::middleware('auth')->
+Route::middleware('admin')->name('admin')->prefix('admin2')->group(function() {
+    Route::get('/',[AdminController::class,'index'])->name('index');
+});
 
 
 Route::get('/dashboard', function () {

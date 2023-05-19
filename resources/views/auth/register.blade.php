@@ -20,48 +20,39 @@
                       <p class="text-center small">Nhập thông tin cá nhân của bạn để tạo tài khoản</p>
                     </div>
   
-                    <form class="row g-3 needs-validation" novalidate>
+                    <form class="row g-3 needs-validation" method="POST" action="{{route('register')}}" novalidate>
+                      @csrf
                       <div class="col-12">
-                        <label for="yourName" class="form-label">Tên của bạn</label>
+                        <label for="name" class="form-label">Tên của bạn </label>
                         <input type="text" name="name" class="form-control" id="yourName" required>
-                        <div class="invalid-feedback">Vui lòng nhập tên của bạn!</div>
+                        <div class="invalid-feedback">Vui lòng nhập tên của bạn</div>
                       </div>
   
                       <div class="col-12">
-                        <label for="yourEmail" class="form-label">Email</label>
+                        <label for="email" class="form-label">Gmail</label>
                         <input type="email" name="email" class="form-control" id="yourEmail" required>
-                        <div class="invalid-feedback">Vui lòng nhập địa chỉ Email của bạn!</div>
+                        <div class="invalid-feedback">Vui lòng nhập địa chỉ gmail</div>
                       </div>
   
                       <div class="col-12">
-                        <label for="yourUsername" class="form-label">Tên đăng nhập</label>
-                        <div class="input-group has-validation">
-                          <span class="input-group-text" id="inputGroupPrepend">*</span>
-                          <input type="text" name="username" class="form-control" id="yourUsername" required>
-                          <div class="invalid-feedback">Vui lòng nhập tên đăng nhập.</div>
-                        </div>
-                      </div>
-  
-                      <div class="col-12">
-                        <label for="yourPassword" class="form-label">Mật khẩu</label>
+                        <label for="password" class="form-label">Mật khẩu</label>
                         <input type="password" name="password" class="form-control" id="yourPassword" required>
-                        <div class="invalid-feedback">Vui lòng nhập mật khẩu!</div>
+                        <div class="invalid-feedback">Vui lòng nhập mật khẩu của bạn</div>
                       </div>
-  
                       <div class="col-12">
-                        <div class="form-check">
-                          <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                          <label class="form-check-label" for="acceptTerms">Tôi đồng ý và chấp nhận <a href="#">các điều khoản và điều kiện</a></label>
-                          <div class="invalid-feedback">Bạn phải đồng ý trước khi gửi.</div>
-                        </div>
+                        <label for="password_confirmation" class="form-label">Mật khẩu</label>
+                        <input type="password" name="password_confirmation" class="form-control" id="yourPassword" required>
+                        <div class="invalid-feedback">Vui lòng nhập mật khẩu của bạn</div>
                       </div>
+                      
                       <div class="col-12">
                         <button class="btn btn-primary w-100" type="submit">Tạo tài khoản</button>
                       </div>
                       <div class="col-12">
-                        <p class="small mb-0">Bạn có sẵn sàng để tạo một tài khoản? <a href="pages-login.html">Đăng nhập</a></p>
+                        <p class="small mb-0">Bạn có sẵn sàng để tạo một tài khoản? <a href="{{ route('login') }}">Đăng nhập</a></p>
                       </div>
                     </form>
+  
   
                   </div>
                 </div>
